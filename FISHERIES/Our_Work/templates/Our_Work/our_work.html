@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}আমাদের বক্তব্য | FISHERIES{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">আমাদের বক্তব্য</h1>
+
+<div class="row">
+    {% for word in words %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="row g-0 align-items-center">
+                {% if word.image %}
+                <div class="col-md-4">
+                    <img src="{{ word.image.url }}"
+                         class="img-fluid rounded-start"
+                         alt="{{ word.author_name }}">
+                </div>
+                {% endif %}
+
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text fst-italic">
+                            "{{ word.message|linebreaks }}"
+                        </p>
+                        <h5 class="card-title mt-2">{{ word.author_name }}</h5>
+                        <p class="text-muted">{{ word.position }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            কোনো বক্তব্য এখনো যোগ করা হয়নি
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

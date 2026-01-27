@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}প্রকাশনা | FISHERIES{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">আমাদের প্রকাশনা</h1>
+
+<div class="row">
+    {% for pub in publications %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ pub.title }}</h5>
+                <p class="text-muted">{{ pub.author }}</p>
+                <p class="card-text">{{ pub.description|truncatechars:150 }}</p>
+            </div>
+            <div class="card-footer small text-center">
+                {% if pub.file %}
+                    <a href="{{ pub.file.url }}" class="btn btn-sm btn-primary" target="_blank">
+                        ডাউনলোড
+                    </a>
+                {% else %}
+                    ফাইল নেই
+                {% endif %}
+                {% if pub.publication_date %}
+                    | প্রকাশিত: {{ pub.publication_date }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            কোনো প্রকাশনা এখনো যোগ করা হয়নি
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

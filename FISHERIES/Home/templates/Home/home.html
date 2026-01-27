@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}হোম | FISHERIES{% endblock %}
+
+{% block content %}
+<!-- Banner Section -->
+<div id="bannerCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for banner in banners %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            {% if banner.image %}
+            <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
+            {% endif %}
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ banner.title }}</h5>
+                <p>{{ banner.description|truncatechars:150 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<!-- Features Section -->
+<section class="mb-5">
+    <h2 class="mb-4 text-center">আমাদের ফিচার</h2>
+    <div class="row">
+        {% for feature in features %}
+        <div class="col-md-4 mb-3 text-center">
+            <i class="{{ feature.icon }} fa-3x mb-2"></i>
+            <h5>{{ feature.title }}</h5>
+            <p>{{ feature.short_description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

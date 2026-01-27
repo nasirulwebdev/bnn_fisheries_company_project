@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}প্রকল্পসমূহ | FISHERIES{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">আমাদের প্রকল্পসমূহ</h1>
+
+<div class="row g-4">
+    {% for project in projects %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+
+            <!-- Image -->
+            {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+            {% endif %}
+
+            <!-- Video -->
+            {% if project.video %}
+                <div class="ratio ratio-16x9">
+                    <video controls>
+                        <source src="{{ project.video.url }}" type="video/mp4">
+                        আপনার ব্রাউজার ভিডিও সাপোর্ট করে না
+                    </video>
+                </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+                <span class="badge 
+                    {% if project.status == 'completed' %}bg-success
+                    {% elif project.status == 'ongoing' %}bg-warning
+                    {% else %}bg-info{% endif %}">
+                    {{ project.get_status_display }}
+                </span>
+                <p class="card-text mt-2">{{ project.short_description }}</p>
+            </div>
+
+            <div class="card-footer small text-muted text-center">
+                {% if project.start_date %}
+                    শুরু: {{ project.start_date }}
+                {% endif %}
+                {% if project.end_date %}
+                    | শেষ: {{ project.end_date }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            কোন প্রকল্প যোগ করা হয়নি
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

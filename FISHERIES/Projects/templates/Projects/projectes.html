@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}প্রকল্পসমূহ | FISHERIES{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">আমাদের প্রকল্পসমূহ</h1>
+
+<div class="row">
+    {% for project in projects %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if project.image %}
+            <img src="{{ project.image.url }}"
+                 class="card-img-top"
+                 alt="{{ project.title }}">
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ project.title }}
+                </h5>
+
+                <span class="badge 
+                    {% if project.status == 'completed' %}bg-success
+                    {% elif project.status == 'ongoing' %}bg-warning
+                    {% else %}bg-info{% endif %}">
+                    {{ project.get_status_display }}
+                </span>
+
+                <p class="card-text mt-2">
+                    {{ project.short_description }}
+                </p>
+            </div>
+
+            <div class="card-footer text-muted small">
+                {% if project.start_date %}
+                    শুরু: {{ project.start_date }}
+                {% endif %}
+                {% if project.end_date %}
+                    | শেষ: {{ project.end_date }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            এখনো কোন প্রকল্প যোগ করা হয়নি
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

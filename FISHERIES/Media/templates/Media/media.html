@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}মিডিয়া | FISHERIES{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">মিডিয়া গ্যালারি</h1>
+
+<div class="row g-4">
+    {% for media in media_list %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <!-- Image -->
+            {% if media.media_type == 'image' and media.image %}
+                <img src="{{ media.image.url }}" class="card-img-top" alt="{{ media.title }}">
+
+            <!-- Video -->
+            {% elif media.media_type == 'video' and media.video_url %}
+                <div class="ratio ratio-16x9">
+                    <iframe src="{{ media.video_url }}" title="{{ media.title }}" allowfullscreen></iframe>
+                </div>
+
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ media.title }}</h5>
+                <p class="card-text">{{ media.short_description }}</p>
+            </div>
+
+            <div class="card-footer text-muted small text-center">
+                প্রকাশিত: {{ media.created_at|date:"d M Y" }}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            কোন মিডিয়া এখনো যোগ করা হয়নি
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
