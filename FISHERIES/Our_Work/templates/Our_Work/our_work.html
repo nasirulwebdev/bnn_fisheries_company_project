@@ -6,25 +6,25 @@
 <h1 class="mb-4 text-center">আমাদের বক্তব্য</h1>
 
 <div class="row">
-    {% for word in words %}
+    {% for work in works %}
     <div class="col-md-6 mb-4">
         <div class="card h-100 shadow-sm">
             <div class="row g-0 align-items-center">
-                {% if word.image %}
+                {% if work.image %}
                 <div class="col-md-4">
-                    <img src="{{ word.image.url }}"
+                    <img src="{{ work.image.url }}"
                          class="img-fluid rounded-start"
-                         alt="{{ word.author_name }}">
+                         alt="{{ work.author_name }}">
                 </div>
                 {% endif %}
 
                 <div class="col-md-8">
                     <div class="card-body">
                         <p class="card-text fst-italic">
-                            "{{ word.message|linebreaks }}"
+                            "{{ work.message|linebreaks }}"
                         </p>
-                        <h5 class="card-title mt-2">{{ word.author_name }}</h5>
-                        <p class="text-muted">{{ word.position }}</p>
+                        <h5 class="card-title mt-2">{{ work.author_name }}</h5>
+                        <p class="text-muted">{{ work.position }}</p>
                     </div>
                 </div>
             </div>
