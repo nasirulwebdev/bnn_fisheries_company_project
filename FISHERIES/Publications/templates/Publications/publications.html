@@ -5,8 +5,15 @@
 {% block content %}
 <h1 class="mb-4 text-center">আমাদের প্রকাশনা</h1>
 
+<!-- Search Form -->
+<form method="get" class="mb-3 text-center">
+    <input type="text" name="q" class="form-control w-50 d-inline-block"
+           placeholder="Search publications..." value="{{ query }}">
+    <button type="submit" class="btn btn-primary ms-2">Search</button>
+</form>
+
 <div class="row">
-    {% for pub in publications %}
+    {% for pub in page_obj %}
     <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
             <div class="card-body">
@@ -36,4 +43,27 @@
     </div>
     {% endfor %}
 </div>
+
+<!-- Pagination -->
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ query }}">Previous</a>
+      </li>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}&q={{ query }}">{{ num }}</a>
+      </li>
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ query }}">Next</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
 {% endblock %}
