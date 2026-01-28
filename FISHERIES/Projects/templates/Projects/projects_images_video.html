@@ -12,7 +12,9 @@
 
             <!-- Image -->
             {% if project.image %}
-                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                <img src="{{ project.image.url }}"
+                     class="card-img-top"
+                     alt="{{ project.title }}">
             {% endif %}
 
             <!-- Video -->
@@ -27,13 +29,17 @@
 
             <div class="card-body">
                 <h5 class="card-title">{{ project.title }}</h5>
+
                 <span class="badge 
                     {% if project.status == 'completed' %}bg-success
                     {% elif project.status == 'ongoing' %}bg-warning
                     {% else %}bg-info{% endif %}">
                     {{ project.get_status_display }}
                 </span>
-                <p class="card-text mt-2">{{ project.short_description }}</p>
+
+                <p class="card-text mt-2">
+                    {{ project.short_description }}
+                </p>
             </div>
 
             <div class="card-footer small text-muted text-center">
@@ -44,6 +50,7 @@
                     | শেষ: {{ project.end_date }}
                 {% endif %}
             </div>
+
         </div>
     </div>
     {% empty %}
