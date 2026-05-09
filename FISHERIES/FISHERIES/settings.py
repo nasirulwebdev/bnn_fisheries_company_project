@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'Media',
     'Projects',
     'Publications',
+    'Notice',
 ]
 
 MIDDLEWARE = [

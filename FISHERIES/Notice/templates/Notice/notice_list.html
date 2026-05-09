@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}নোটিশ | FISHERIES{% endblock %}
+
+{% block content %}
+<html>
+<head>
+    <title>BNN Fish Company Notices</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f9;
+            margin:0;
+            padding:40px;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+        }
+
+        .title{
+            text-align:center;
+            margin-bottom:40px;
+            color:#0d6efd;
+        }
+
+        .notice-card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .badge{
+            padding:5px 12px;
+            border-radius:20px;
+            color:white;
+            font-size:13px;
+        }
+
+        .normal{
+            background:#198754;
+        }
+
+        .important{
+            background:#fd7e14;
+        }
+
+        .urgent{
+            background:#dc3545;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:10px;
+            padding:10px 20px;
+            background:#0d6efd;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        .date{
+            color:gray;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="title">
+        BNN FISH COMPANY LTD NOTICE BOARD
+    </h1>
+
+    {% for notice in notices %}
+
+    <div class="notice-card">
+
+        <h2>{{ notice.title }}</h2>
+
+        <p class="date">
+            Published: {{ notice.created_at }}
+        </p>
+
+        {% if notice.priority == 'Normal' %}
+            <span class="badge normal">
+                Normal
+            </span>
+        {% elif notice.priority == 'Important' %}
+            <span class="badge important">
+                Important
+            </span>
+        {% else %}
+            <span class="badge urgent">
+                Urgent
+            </span>
+        {% endif %}
+
+        <p>
+            {{ notice.description|truncatewords:30 }}
+        </p>
+
+        <a href="{% url 'notice_detail' notice.id %}" class="btn">
+            View Details
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
+{% endblock %}
